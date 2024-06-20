@@ -1,11 +1,12 @@
 package org.san.oauth2practice.repository;
 
+import org.san.oauth2practice.model.User.OauthType;
+import org.san.oauth2practice.model.User.User;
+import org.springframework.stereotype.Repository;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.san.oauth2practice.model.User.User;
-import org.springframework.stereotype.Repository;
 
 @Repository
 public class InMemoryUserRepository {
@@ -16,11 +17,11 @@ public class InMemoryUserRepository {
         return userStorage.get(id);
     }
 
-    public User findByOAuthIdAndOAuthType(String oauthId, String oauthType) {
+    public User findByOAuthIdAndOAuthType(String oauthId, OauthType oauthType) {
         return userStorage.values().stream()
-            .filter(user -> user.getOauthId().equals(oauthId) && user.getOauthType().equals(oauthType))
-            .findAny()
-            .orElse(null);
+                .filter(user -> user.getOauthId().equals(oauthId) && user.getOauthType().equals(oauthType))
+                .findAny()
+                .orElse(null);
     }
 
     public User save(User user) {
@@ -37,6 +38,8 @@ public class InMemoryUserRepository {
     public Map<Integer, User> findAll() {
         return new HashMap<>(userStorage);
     }
+
+
 }
 
 
