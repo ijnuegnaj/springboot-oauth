@@ -21,7 +21,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
         http.oauth2Login(config -> config
                 .authorizationEndpoint(endpointConfig -> endpointConfig
                         .baseUri("/oauth2/authorize/custom"))
