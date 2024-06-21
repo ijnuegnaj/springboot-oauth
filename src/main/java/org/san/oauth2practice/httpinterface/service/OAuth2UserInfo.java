@@ -1,4 +1,4 @@
-package org.san.oauth2practice.service;
+package org.san.oauth2practice.httpinterface.service;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
-package org.san.oauth2practice.global;
+package org.san.oauth2practice.oauth2client.config;
 
 import lombok.RequiredArgsConstructor;
-import org.san.oauth2practice.service.CustomAuthExceptionHandler;
-import org.san.oauth2practice.service.CustomOAuth2SuccessHandler;
-import org.san.oauth2practice.service.CustomOAuth2UserService;
+import org.san.oauth2practice.oauth2client.service.CustomAuthExceptionHandler;
+import org.san.oauth2practice.oauth2client.service.CustomOAuth2SuccessHandler;
+import org.san.oauth2practice.oauth2client.service.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,8 +21,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
         http.oauth2Login(config -> config
+                .authorizationEndpoint(endpointConfig -> endpointConfig
+                        .baseUri("/oauth2/authorize/custom"))
+                .redirectionEndpoint(redirectConfig -> redirectConfig
+                        .baseUri("/oauth2/redirect/custom"))
+
                 .successHandler(customOAuth2SuccessHandler)
                 .failureHandler(customAuthExceptionHandler)
                 .userInfoEndpoint(endpointConfig -> endpointConfig
@@ -31,15 +36,3 @@ public class SecurityConfig {
         return http.build();
     }
 }
-
-// http.oauth2Login(//Customizer.withDefaults()
-//     config -> {
-//     config
-//     .loginPage("/login/oauth2")
-//                     .authorizationEndpoint(authorization -> authorization
-//     .baseUri("/login/oauth2/authorization"))
-//     .redirectionEndpoint(redirect -> redirect
-//     .baseUri("/login/oauth2/redirect"));
-//
-//     }
-//     );

@@ -1,4 +1,4 @@
-package org.san.oauth2practice.service;
+package org.san.oauth2practice.oauth2client.service;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
-package org.san.oauth2practice.service;
+package org.san.oauth2practice.httpinterface.service;
 
+import org.san.oauth2practice.httpinterface.provider.RestOAuth2Strategy;
 import org.san.oauth2practice.model.User.OauthType;
-import org.san.oauth2practice.service.strategy.OAuth2Strategy;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.stereotype.Component;
 
@@ -13,15 +13,15 @@ import static java.util.function.UnaryOperator.identity;
 import static java.util.stream.Collectors.toMap;
 
 @Component
-public class OAuth2StrategyComposite {
-    private final Map<OauthType, OAuth2Strategy> oauth2ProviderMap;
+public class OAuth2RestStrategyComposite {
+    private final Map<OauthType, RestOAuth2Strategy> oauth2ProviderMap;
 
-    public OAuth2StrategyComposite(Set<OAuth2Strategy> clients) {
+    public OAuth2RestStrategyComposite(Set<RestOAuth2Strategy> clients) {
         this.oauth2ProviderMap = clients.stream()
-                .collect(toMap(OAuth2Strategy::getOAuth2ProviderType, identity()));
+                .collect(toMap(RestOAuth2Strategy::getOAuth2Type, identity()));
     }
 
-    public OAuth2Strategy getOAuth2Strategy(OauthType provider) {
+    public RestOAuth2Strategy getOAuth2Strategy(OauthType provider) {
         return Optional.ofNullable(oauth2ProviderMap.get(provider))
                 .orElseThrow(() -> new OAuth2AuthenticationException("not supported OAuth2 provider"));
     }
