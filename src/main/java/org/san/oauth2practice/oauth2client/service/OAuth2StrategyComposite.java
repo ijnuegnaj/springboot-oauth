@@ -1,7 +1,7 @@
-package org.san.oauth2practice.service;
+package org.san.oauth2practice.oauth2client.service;
 
 import org.san.oauth2practice.model.User.OauthType;
-import org.san.oauth2practice.service.strategy.OAuth2Strategy;
+import org.san.oauth2practice.oauth2client.service.strategy.OAuth2Strategy;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.stereotype.Component;
 
